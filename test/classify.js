@@ -13,6 +13,7 @@ const scriptHash = require('../src/templates/scripthash')
 const witnessPubKeyHash = require('../src/templates/witnesspubkeyhash')
 const witnessScriptHash = require('../src/templates/witnessscripthash')
 const witnessCommitment = require('../src/templates/witnesscommitment')
+const futureSegwit = require('../src/templates/futuresegwit')
 
 const tmap = {
   pubKey,
@@ -22,7 +23,8 @@ const tmap = {
   witnessScriptHash,
   multisig,
   nullData,
-  witnessCommitment
+  witnessCommitment,
+  futureSegwit
 }
 
 describe('classify', function () {
@@ -72,7 +74,8 @@ describe('classify', function () {
     'witnessScriptHash',
     'multisig',
     'nullData',
-    'witnessCommitment'
+    'witnessCommitment',
+    'futureSegwit'
   ].forEach(function (name) {
     const inputType = tmap[name].input
     const outputType = tmap[name].output
