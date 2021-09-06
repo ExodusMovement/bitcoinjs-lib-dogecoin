@@ -7,6 +7,7 @@ const scriptHash = require('./templates/scripthash')
 const witnessPubKeyHash = require('./templates/witnesspubkeyhash')
 const witnessScriptHash = require('./templates/witnessscripthash')
 const witnessCommitment = require('./templates/witnesscommitment')
+const futuresegwit = require('./templates/futuresegwit')
 
 const types = {
   P2MS: 'multisig',
@@ -17,7 +18,8 @@ const types = {
   P2SH: 'scripthash',
   P2WPKH: 'witnesspubkeyhash',
   P2WSH: 'witnessscripthash',
-  WITNESS_COMMITMENT: 'witnesscommitment'
+  WITNESS_COMMITMENT: 'witnesscommitment',
+  FUTURE_SEGWIT: 'futuresegwit'
 }
 
 function classifyOutput (script) {
@@ -25,6 +27,7 @@ function classifyOutput (script) {
   if (witnessScriptHash.output.check(script)) return types.P2WSH
   if (pubKeyHash.output.check(script)) return types.P2PKH
   if (scriptHash.output.check(script)) return types.P2SH
+  if (futuresegwit.output.check(script)) return types.FUTURE_SEGWIT
 
   // XXX: optimization, below functions .decompile before use
   const chunks = decompile(script)
@@ -34,6 +37,7 @@ function classifyOutput (script) {
   if (pubKey.output.check(chunks)) return types.P2PK
   if (witnessCommitment.output.check(chunks)) return types.WITNESS_COMMITMENT
   if (nullData.output.check(chunks)) return types.NULLDATA
+
 
   return types.NONSTANDARD
 }
